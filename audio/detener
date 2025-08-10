@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 # Versión bashrc:
 # function detener() {
 #   termux-microphone-record -q

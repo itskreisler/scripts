@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 # Versión bashrc:
 # function grabar() {
 #   export AUDIO_NAME="mi_audio_$(date +%Y%m%d_%H%M%S)"
