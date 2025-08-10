@@ -1,3 +1,0 @@
-#!/bin/bash
-termux-microphone-record -q
-ffmpeg -y -i "$HOME/storage/shared/$AUDIO_NAME.aac" "$HOME/storage/shared/$AUDIO_NAME.mp3" && rm "$HOME/storage/shared/$AUDIO_NAME.aac"

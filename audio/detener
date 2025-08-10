@@ -1,0 +1,15 @@
+#!/bin/bash
+# Versión bashrc:
+# function detener() {
+#   termux-microphone-record -q
+#   ffmpeg -y -i "$HOME/storage/shared/$AUDIO_NAME.aac" "$HOME/storage/shared/$AUDIO_NAME.mp3" && rm "$HOME/storage/shared/$AUDIO_NAME.aac"
+# }
+
+AUDIO_NAME=$(cat "$TMPDIR/audio_name.txt" 2>/dev/null)
+if [ -z "$AUDIO_NAME" ]; then
+    echo "No hay grabación previa guardada en $TMPDIR/audio_name.txt" >&2
+    exit 1
+fi
+termux-microphone-record -q
+ffmpeg -y -i "$HOME/storage/shared/$AUDIO_NAME.aac" "$HOME/storage/shared/$AUDIO_NAME.mp3" \
+    && rm "$HOME/storage/shared/$AUDIO_NAME.aac" "$TMPDIR/audio_name.txt"

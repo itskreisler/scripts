@@ -1,4 +1,0 @@
-#!/bin/bash
-AUDIO_NAME="mi_audio_$(date +%Y%m%d_%H%M%S)"
-export AUDIO_NAME
-termux-microphone-record -e aac -b 128 -r 44100 -l 0 -f "$HOME/storage/shared/$AUDIO_NAME.aac"

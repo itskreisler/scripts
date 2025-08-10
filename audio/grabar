@@ -1,0 +1,10 @@
+#!/bin/bash
+# Versión bashrc:
+# function grabar() {
+#   export AUDIO_NAME="mi_audio_$(date +%Y%m%d_%H%M%S)"
+#   termux-microphone-record -e aac -b 128 -r 44100 -l 0 -f "$HOME/storage/shared/$AUDIO_NAME.aac"
+# }
+
+AUDIO_NAME="mi_audio_$(date +%Y%m%d_%H%M%S)"
+echo "$AUDIO_NAME" > "$TMPDIR/audio_name.txt"
+termux-microphone-record -e aac -b 128 -r 44100 -l 0 -f "$HOME/storage/shared/$AUDIO_NAME.aac"

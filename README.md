@@ -87,3 +87,30 @@ for file in ~/scripts/*; do
     [ -f "$file" ] && command -v "$(basename "$file")" > /dev/null || ln -s "$file" "$HOME/../usr/bin/$(basename "$file")"
 done
 ```
+
+## 📂 Gestión de enlaces simbólicos para scripts
+En Termux, podemos crear enlaces simbólicos en `$PREFIX/bin` para ejecutar nuestros scripts desde cualquier carpeta sin poner la ruta completa.
+
+**Crear enlace simbólico si no existe:**
+```bash
+command -v grabar > /dev/null || ln -s "$(pwd)/grabar" "$HOME/../usr/bin/grabar"
+```
+
+**Eliminar enlace simbólico:**
+```bash
+rm "$HOME/../usr/bin/grabar"
+```
+
+**Verificar si existe el enlace y su destino:**
+```bash
+ls -l "$HOME/../usr/bin/grabar"
+```
+
+**Comando para crear o borrar automáticamente según exista o no:**
+```bash
+if [ -L "$HOME/../usr/bin/grabar" ]; then
+    rm "$HOME/../usr/bin/grabar" && echo "Enlace eliminado"
+else
+    ln -s "$(pwd)/grabar" "$HOME/../usr/bin/grabar" && echo "Enlace creado"
+fi
+```
