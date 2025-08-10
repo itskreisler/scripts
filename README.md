@@ -114,4 +114,36 @@ else
     ln -s "$(pwd)/grabar" "$HOME/../usr/bin/grabar" && echo "Enlace creado"
 fi
 ```
-\n---\n\n## Organización y shortcuts en Termux 🐱‍👤✨\n\n- Los scripts están organizados en la carpeta `scripts/` dentro del repo para mantener todo ordenadito y evitar tener archivos sueltos.  \n- Los shortcuts para Termux Widget están en `scripts/shortcuts/` y se copian directamente a la carpeta `~/.shortcuts` para que el widget los reconozca correctamente.  \n- Importante usar el shebang correcto para Termux en los scripts, por ejemplo:  \n  ```bash\n  #!/data/data/com.termux/files/usr/bin/bash\n  ```\n- Para ejecutar scripts que requieren entorno Termux correctamente, se usa la utilidad `tudo` para evitar errores de "cannot execute: required file not found".  \n- En los shortcuts que llaman a scripts del repo se recomienda usar la línea:  \n  ```bash\n  tudo ~/scripts/shortcuts/yt-dlp-launcher "$@"\n  ```\n- Siempre dar permisos de ejecución con `chmod +x` a los scripts y shortcuts para que funcionen con Termux Widget.  \n- Si el shortcut usa comandos de `termux-api`, se recomienda probar primero desde Termux normal para asegurarse que funcionan.  \n- Para manejar el historial al probar comandos se puede desactivar temporalmente con:  \n  ```bash\n  set +o history\n  # comandos kawaii...\n  set -o history\n  ```\n  \n¡Así mantienes todo kawaii y funcionando sin enredos en tu Termux uwu!  \n🐾✨\n
+
+## Organización y shortcuts en Termux 🐱‍👤✨
+
+- Los scripts están organizados en la carpeta `scripts/` dentro del repo para mantener todo ordenadito y evitar tener archivos sueltos.
+
+- Los shortcuts para Termux Widget están en `scripts/shortcuts/` y se copian directamente a la carpeta `~/.shortcuts` para que el widget los reconozca correctamente.
+
+- Importante usar el shebang correcto para Termux en los scripts, por ejemplo:
+ 
+```bash
+#!/data/data/com.termux/files/usr/bin/bash
+```
+
+- Para ejecutar scripts que requieren entorno Termux correctamente, se usa la utilidad `tudo` para evitar errores de "cannot execute: required file not found".
+
+- En los shortcuts que llaman a scripts del repo se recomienda usar la línea:
+
+```bash
+tudo ~/scripts/shortcuts/yt-dlp-launcher "$@"
+```
+
+- Siempre dar permisos de ejecución con `chmod +x` a los scripts y shortcuts para que funcionen con Termux Widget.
+
+- Si el shortcut usa comandos de `termux-api`, se recomienda probar primero desde Termux normal para asegurarse que funcionan.
+
+- Para manejar el historial al probar comandos se puede desactivar temporalmente con:  
+
+```bash
+set +o history
+# comandos kawaii...
+set -o history
+```
+
