@@ -1,0 +1,71 @@
+#!/bin/bash
+# Uso: yt-dlp-dl <URL> [--mp3|--wav|--flac|--video|--menu]
+
+# Verificar dependencias
+if ! command -v python &> /dev/null && ! command -v python3 &> /dev/null; then
+    echo "Error: Python no está instalado. Usa: pkg install python" >&2
+    exit 1
+fi
+
+if ! command -v yt-dlp &> /dev/null; then
+    echo "Instalando yt-dlp..."
+    pip install -U yt-dlp || {
+        echo "Error: Fallo en instalación. Verifica pip" >&2
+        exit 1
+    }
+fi
+
+URL="$1"
+if [ -z "$URL" ]; then
+    echo "Uso: yt-dlp-dl <URL> [--mp3|--wav|--flac|--video|--menu]" >&2
+    exit 1
+fi
+
+case "$2" in
+    --menu)
+        echo "Formatos disponibles para '$URL':"
+        yt-dlp -F "$URL"
+        echo -e "\nIngresa el código de formato:"
+        read -r FORMAT
+        [ -z "$FORMAT" ] && exit 1
+        yt-dlp -f "$FORMAT" "$URL" \
+            --output "./%(title)s.%(ext)s" \
+            --add-metadata \
+            --embed-thumbnail
+        ;;
+    --video)
+        yt-dlp "$URL" \
+            --format "bestvideo+bestaudio/best" \
+            --merge-output-format mp4 \
+            --output "./%(title)s.%(ext)s" \
+            --add-metadata \
+            --embed-thumbnail \
+            --no-playlist
+        ;;
+    --wav)
+        yt-dlp "$URL" \
+            --extract-audio \
+            --audio-format wav \
+            --audio-quality 0 \
+            --output "./%(title)s.%(ext)s" \
+            --no-playlist
+        ;;
+    --flac)
+        yt-dlp "$URL" \
+            --extract-audio \
+            --audio-format flac \
+            --audio-quality 0 \
+            --output "./%(title)s.%(ext)s" \
+            --no-playlist
+        ;;
+    --mp3|*)
+        yt-dlp "$URL" \
+            --extract-audio \
+            --audio-format mp3 \
+            --audio-quality 0 \
+            --output "./%(title)s.%(ext)s" \
+            --add-metadata \
+            --embed-thumbnail \
+            --no-playlist
+        ;;
+esac
