@@ -1,5 +1,5 @@
 #!/bin/bash
-# Uso: yt-dlp-dl <URL> [--mp3|--wav|--flac|--video|--menu]
+# Uso: yt-dlp-dl <URL> [output_directory] [--mp3|--wav|--flac|--video|--menu]
 
 # Verificar dependencias
 if ! command -v python &> /dev/null && ! command -v python3 &> /dev/null; then
@@ -16,12 +16,14 @@ if ! command -v yt-dlp &> /dev/null; then
 fi
 
 URL="$1"
+OUTPUT_DIR="${2:-.}"  # Directorio de salida por defecto es el directorio actual
+
 if [ -z "$URL" ]; then
-    echo "Uso: yt-dlp-dl <URL> [--mp3|--wav|--flac|--video|--menu]" >&2
+    echo "Uso: yt-dlp-dl <URL> [output_directory] [--mp3|--wav|--flac|--video|--menu]" >&2
     exit 1
 fi
 
-case "$2" in
+case "$3" in
     --menu)
         echo "Formatos disponibles para '$URL':"
         yt-dlp -F "$URL"
@@ -29,7 +31,7 @@ case "$2" in
         read -r FORMAT
         [ -z "$FORMAT" ] && exit 1
         yt-dlp -f "$FORMAT" "$URL" \
-            --output "./%(title)s.%(ext)s" \
+            --output "$OUTPUT_DIR/%(title)s.%(ext)s" \
             --add-metadata \
             --embed-thumbnail
         ;;
@@ -37,7 +39,7 @@ case "$2" in
         yt-dlp "$URL" \
             --format "bestvideo+bestaudio/best" \
             --merge-output-format mp4 \
-            --output "./%(title)s.%(ext)s" \
+            --output "$OUTPUT_DIR/%(title)s.%(ext)s" \
             --add-metadata \
             --embed-thumbnail \
             --no-playlist
@@ -47,7 +49,7 @@ case "$2" in
             --extract-audio \
             --audio-format wav \
             --audio-quality 0 \
-            --output "./%(title)s.%(ext)s" \
+            --output "$OUTPUT_DIR/%(title)s.%(ext)s" \
             --no-playlist
         ;;
     --flac)
@@ -55,7 +57,7 @@ case "$2" in
             --extract-audio \
             --audio-format flac \
             --audio-quality 0 \
-            --output "./%(title)s.%(ext)s" \
+            --output "$OUTPUT_DIR/%(title)s.%(ext)s" \
             --no-playlist
         ;;
     --mp3|*)
@@ -63,7 +65,7 @@ case "$2" in
             --extract-audio \
             --audio-format mp3 \
             --audio-quality 0 \
-            --output "./%(title)s.%(ext)s" \
+            --output "$OUTPUT_DIR/%(title)s.%(ext)s" \
             --add-metadata \
             --embed-thumbnail \
             --no-playlist
