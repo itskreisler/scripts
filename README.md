@@ -5,7 +5,7 @@ Este repositorio contiene mis scripts organizados para usarlos facilmente en Ter
 
 ## Estructura
 
-```
+```bash
 ~/scripts/
     script1.sh
     script2.sh
