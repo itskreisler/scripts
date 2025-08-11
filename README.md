@@ -147,3 +147,19 @@ set +o history
 set -o history
 ```
 
+#como ejecutar comandos desde una norificacion
+
+```bash
+termux-notification \
+  --title "Abrir sesión uwu~" \
+  --content "Tap aquí para ejecutar comando nya~" \
+  --button1 "Ejecutar" \
+  --button1-action "sh -c 'am startservice --user 0 \
+    -n com.termux/com.termux.app.RunCommandService \
+    -a com.termux.RUN_COMMAND \
+    --es com.termux.RUN_COMMAND_PATH /data/data/com.termux/files/usr/bin/termux-dialog \
+    --esa com.termux.RUN_COMMAND_ARGUMENTS -t,text,-i,\"Hola desde termux-dialog nya~\" \
+    --es com.termux.RUN_COMMAND_WORKDIR /data/data/com.termux/files/home \
+    --ez com.termux.RUN_COMMAND_BACKGROUND false \
+    --es com.termux.RUN_COMMAND_SESSION_ACTION 0'"
+```

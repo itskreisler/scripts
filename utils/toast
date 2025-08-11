@@ -1,0 +1,64 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+# Colores según tipo (Material Design vibes)
+PRIMARY_BG="#2196F3"   # Azul
+PRIMARY_FG="#FFFFFF"
+
+SECONDARY_BG="#9E9E9E" # Gris
+SECONDARY_FG="#FFFFFF"
+
+DANGER_BG="#F44336"    # Rojo
+DANGER_FG="#FFFFFF"
+
+INFO_BG="#03A9F4"      # Celeste
+INFO_FG="#FFFFFF"
+
+WARNING_BG="#FFC107"   # Amarillo
+WARNING_FG="#000000"
+
+SUCCESS_BG="#4CAF50"   # Verde
+SUCCESS_FG="#FFFFFF"
+
+# Función para mostrar toast
+show_toast() {
+    local type="$1"
+    local text="$2"
+    local bg fg
+
+    case "$type" in
+        primary)
+            bg="$PRIMARY_BG"
+            fg="$PRIMARY_FG"
+            ;;
+        secondary)
+            bg="$SECONDARY_BG"
+            fg="$SECONDARY_FG"
+            ;;
+        success)
+            bg="$SUCCESS_BG"
+            fg="$SUCCESS_FG"
+            ;;
+        danger)
+            bg="$DANGER_BG"
+            fg="$DANGER_FG"
+            ;;
+        info)
+            bg="$INFO_BG"
+            fg="$INFO_FG"
+            ;;
+        warning)
+            bg="$WARNING_BG"
+            fg="$WARNING_FG"
+            ;;
+        *)
+            echo "Tipo no válido: $type"
+            echo "Usa: primary, secondary, danger, info, warning"
+            exit 1
+            ;;
+    esac
+
+    termux-toast -g top -b "$bg" -c "$fg" "$text"
+}
+
+# Uso: ./toast.sh tipo "mensaje"
+show_toast "$1" "$2"
