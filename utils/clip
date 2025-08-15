@@ -1,0 +1,29 @@
+#!/bin/bash
+clip() {
+    local start length
+    if [[ -f "$1" ]]; then
+        if [[ -z "$2" || -z "$3" ]]; then
+            cat "$1" | termux-clipboard-set
+            toast info "Archivo '$1' copiado completo nyaaa~"
+            return
+        else
+            start=$2
+            length=$3
+            local text=$(cat "$1")
+        fi
+    else
+        if [[ -z "$1" || -z "$2" ]]; then
+            cat | termux-clipboard-set
+            toast info "Contenido copiado completo nyaaa~"
+            return
+        else
+            start=$1
+            length=$2
+            local text=$(cat)
+        fi
+    fi
+    local substr=${text:start:length}
+    echo -n "$substr" | termux-clipboard-set
+    toast info "Contenido substring copiado (pos $start, len $length) nyaaa~"
+}
+clip "$@"

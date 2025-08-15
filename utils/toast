@@ -52,7 +52,7 @@ show_toast() {
             ;;
         *)
             echo "Tipo no válido: $type"
-            echo "Usa: primary, secondary, danger, info, warning"
+            echo "Usa: primary, secondary, success, danger, info, warning"
             exit 1
             ;;
     esac
