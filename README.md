@@ -197,3 +197,39 @@ ownload.sh \
   --button3-action "termux-notification-remove $NOTIF_ID" \
   --ongoing
 ```
+
+## Enlaces simbólicos en Git Bash (Windows)
+
+Git Bash soporta `ln -s`, pero en Windows puede crear copias en lugar de symlinks reales si no tienes permisos.
+
+Para que funcione como en Linux necesitas:
+
+- Modo Desarrollador activado en Windows, o
+- Ejecutar Git Bash como Administrador, o
+- Usar `MSYS=winsymlinks:nativestrict` para forzar symlinks nativos NTFS.
+
+Una vez configurado, los symlinks aparecen correctamente en `ls -l`:
+
+```bash
+yt-dlp-dl -> /c/Users/Kreisler/commands/scripts/video/yt-dlp-dl
+```
+
+### 🗂️ Directorio ~/local/bin
+
+Se puede usar `~/local/bin` como un `/usr/local/bin` casero.
+
+Cualquier script o binario enlazado ahí se vuelve accesible globalmente si agregas esto a tu `~/.bashrc`:
+
+```bash
+export PATH=$HOME/local/bin:$PATH
+```
+
+#### Ejemplos
+
+```bash
+# Crear enlace simbólico en ~/local/bin
+ln -s /c/Users/Kreisler/commands/scripts/video/yt-dlp-dl ~/local/bin/yt-dlp-dl
+
+# Verificar el symlink
+ls -l ~/local/bin/yt-dlp-dl
+```
